@@ -4,6 +4,7 @@ env:
   TFE_ORGANIZATION: ${{secrets.TFE_ORG}}
   TFE_WORKSPACE: ${{secrets.TFE_WS}}
   S3_BUCKET: ${{secrets.BUCKET_NAME}}
+  TFE_TOKEN: ${{secrets.TFE_TOKEN}}
 
 on:
   # schedule:
