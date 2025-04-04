@@ -1,6 +1,6 @@
-# Terraform Enterprise State Sync Workflow
+# Terraform Enterprise/Cloud State Sync Workflow
 
-This GitHub Actions workflow automatically synchronizes Terraform Enterprise (TFE) state files to an AWS S3 bucket. It can run on a schedule or be triggered manually. This is in case your current workflow is VCS based. You could otherwise perform a `terraform state pull` and use the output to sync it to the backup path you desire.
+This GitHub Actions workflow automatically synchronizes HCP Terraform/Terraform Enterprise (TFE) state files to an AWS S3 bucket. It can run on a schedule or be triggered manually. This is in case your current workflow is VCS based. You could otherwise perform a `terraform state pull` and use the output to sync it to the backup path you desire.
 
 ## Features
 
