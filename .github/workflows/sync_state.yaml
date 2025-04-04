@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Download TFE State
         run: |
-          # Get the current state version ID
+          # Get the current state version ID and state url
           WORKSPACE_ID=$(curl \
             --header "Authorization: Bearer $TFE_TOKEN" \
             --header "Content-Type: application/vnd.api+json" \
@@ -32,14 +32,19 @@ jobs:
             --header "Content-Type: application/vnd.api+json" \
             "https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/current-state-version" \
             | jq -r '.data.id')
-          
-          # Download the state file
-          curl \
+
+          STATE_URL=$(curl \
             --header "Authorization: Bearer $TFE_TOKEN" \
             --header "Content-Type: application/vnd.api+json" \
-            "https://app.terraform.io/api/v2/state-versions/${STATE_VERSION_ID}/download" \
-            --output terraform.tfstate
+            "https://app.terraform.io/api/v2/state-versions/${STATE_VERSION_ID}" \
+            | jq -r '.data.attributes."hosted-state-download-url"')
 
+          curl -vL \
+            --header "Authorization: Bearer $TFE_TOKEN" \
+            --header "Content-Type: application/vnd.api+json" \
+            "$STATE_URL" \
+            --output terraform.tfstate
+         
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
