@@ -14,6 +14,9 @@ on:
 jobs:
   sync-state:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read    
     steps:
       - name: Download TFE State
         run: |
